@@ -7,6 +7,7 @@ import hellocucumber.meg.listshop.uitests.pages.onboarding.OnboardingBasePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignUpPage;
 import io.appium.java_client.AppiumDriver;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,7 +20,11 @@ public class ChoicePageStepDefinitions {
     SignInPage signInPage = new SignInPage();
     WithNavbarBasePage anyNavbarPage = new WithNavbarBasePage();
 
-
+    @Given("user is on choice page")
+    public void userIsOnChoicePage() {
+        boolean onLandingPage = homePage.currentlyOnOnboardingPage();
+        Assertions.assertTrue(onLandingPage);
+    }
 
     @When("User clicks on the signup button")
     public void userClicksOnTheSignupButton() throws InterruptedException {
@@ -40,14 +45,17 @@ public class ChoicePageStepDefinitions {
     public void iShouldBeSeeTheSkipButton() {
         Assertions.assertTrue(homePage.verifySkipButtonIsVisible());
     }
+
     @Then("I should see the signin button")
     public void iShouldSeeTheSigninButton() {
         Assertions.assertTrue(homePage.verifySignInButtonIsVisible());
     }
+
     @Then("I should see the signup button")
     public void iShouldSeeTheSignupButton() {
         Assertions.assertTrue(homePage.verifySignUpButtonIsVisible());
     }
+
     @Then("User sees the signup page")
     public void userSeesTheSignupPage() {
         Assertions.assertTrue(signUpPage.verifyTitleDisplayed());

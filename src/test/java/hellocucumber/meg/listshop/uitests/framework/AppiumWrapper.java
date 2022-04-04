@@ -81,13 +81,27 @@ public class AppiumWrapper {
         return appiumDriver;
     }
 
+    @After("@mobile")
+    public static void resetApp() {
+        System.out.println("Clean Up Afterwards - restarting app");
+        if (appiumDriver == null) {
+            try {
+                intializeAppiumDriver();
+            } catch (MalformedURLException e) {
+                Assertions.fail("Unable to initialize Appium driver due to invalid Server URL or there server is already in use");
+
+            }
+        }
+
+       appiumDriver.resetApp();
+    }
     /**
      * This method is used to quit the Appium driver if it is not null
      */
-    @After("@mobile")
+    //@After("@mobile")
     public static void quitAppiumDriver() {
         if (appiumDriver != null) {
-            System.out.println("Quitting Appium..");
+            System.out.println("    Quitting Appium..");
             appiumDriver.quit();
             System.out.println("Quitting Appium - Done");
             appiumDriver = null;

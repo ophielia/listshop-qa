@@ -1,3 +1,4 @@
+@mobile
 Feature: Do my tests work?
   Everybody wants it to work
 

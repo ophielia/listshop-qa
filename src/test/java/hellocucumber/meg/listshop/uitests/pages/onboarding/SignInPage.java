@@ -1,6 +1,5 @@
 package hellocucumber.meg.listshop.uitests.pages.onboarding;
 
-import hellocucumber.meg.listshop.uitests.framework.MobileBasePage;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -24,4 +23,17 @@ public class SignInPage extends OnboardingBasePage {
         Thread.sleep(1000);
     }
 
+    public void enterUsername(String username) {
+        tapOn(emailEntry);
+        setValue(emailEntry, username);
+    }
+
+    public void enterPassword(String password) {
+        tapOn(passwordEntry);
+        setValue(passwordEntry, password);
+    }
+
+    public void clickOnSubmit() {
+        tapOn(signInButton);
+    }
 }

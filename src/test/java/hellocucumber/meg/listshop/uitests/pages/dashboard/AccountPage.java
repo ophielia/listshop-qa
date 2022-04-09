@@ -15,4 +15,6 @@ public class AccountPage extends WithNavbarBasePage  {
     public void goToLandingPage() {
         tapOn(gotoSignupButton);
     }
+
+
 }

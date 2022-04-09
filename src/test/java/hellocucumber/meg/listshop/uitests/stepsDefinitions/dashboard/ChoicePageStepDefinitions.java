@@ -8,6 +8,7 @@ import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignUpPage;
 import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,7 +21,7 @@ public class ChoicePageStepDefinitions {
     SignInPage signInPage = new SignInPage();
     WithNavbarBasePage anyNavbarPage = new WithNavbarBasePage();
 
-    @Given("user is on choice page")
+    @Given("User is on choice page")
     public void userIsOnChoicePage() {
         boolean onLandingPage = homePage.currentlyOnOnboardingPage();
         Assertions.assertTrue(onLandingPage);
@@ -41,17 +42,17 @@ public class ChoicePageStepDefinitions {
         homePage.clickOnSkipButton();
     }
 
-    @Then("I should be see the skip button")
+    @Then("User should see the skip button")
     public void iShouldBeSeeTheSkipButton() {
         Assertions.assertTrue(homePage.verifySkipButtonIsVisible());
     }
 
-    @Then("I should see the signin button")
+    @Then("User should see the signin button")
     public void iShouldSeeTheSigninButton() {
         Assertions.assertTrue(homePage.verifySignInButtonIsVisible());
     }
 
-    @Then("I should see the signup button")
+    @Then("User should see the signup button")
     public void iShouldSeeTheSignupButton() {
         Assertions.assertTrue(homePage.verifySignUpButtonIsVisible());
     }
@@ -70,4 +71,5 @@ public class ChoicePageStepDefinitions {
     public void userSeesTheListScreenPage() {
         Assertions.assertTrue(anyNavbarPage.isOnPageWithNavbar());
     }
+
 }

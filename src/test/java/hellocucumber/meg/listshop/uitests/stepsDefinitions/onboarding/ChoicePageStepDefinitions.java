@@ -1,14 +1,9 @@
-package hellocucumber.meg.listshop.uitests.stepsDefinitions.dashboard;
+package hellocucumber.meg.listshop.uitests.stepsDefinitions.onboarding;
 
-import hellocucumber.meg.listshop.uitests.framework.AppiumWrapper;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.OnboardingBasePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignUpPage;
-import io.appium.java_client.AppiumDriver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

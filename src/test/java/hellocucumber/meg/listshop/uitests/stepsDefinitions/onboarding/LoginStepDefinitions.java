@@ -1,9 +1,9 @@
-package hellocucumber.meg.listshop.uitests.stepsDefinitions.dashboard;
+package hellocucumber.meg.listshop.uitests.stepsDefinitions.onboarding;
 
+import hellocucumber.meg.listshop.uitests.framework.AppiumWrapper;
 import hellocucumber.meg.listshop.uitests.pages.dashboard.AccountPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -38,4 +38,10 @@ public class LoginStepDefinitions {
 
     }
 
+    @And("User reopens app")
+    public void userReopensApp() {
+        AppiumWrapper.reopenApp();
+
+       //getAppiumDriver().launchApp();
+    }
 }

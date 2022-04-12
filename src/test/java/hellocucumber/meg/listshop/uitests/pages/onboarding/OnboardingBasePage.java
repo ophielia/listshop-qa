@@ -64,7 +64,7 @@ public class OnboardingBasePage extends MobileBasePage {
 
         // if on a navbar page
         if (navbarBasePage.isOnPageWithNavbar()) {
-            // go to dashboard
+            // go to onboarding
             WithNavbarBasePage.goToDashboardRoot(navbarBasePage);
 
         }

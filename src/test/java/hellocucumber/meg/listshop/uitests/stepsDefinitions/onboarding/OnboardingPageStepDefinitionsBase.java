@@ -1,13 +1,9 @@
-package hellocucumber.meg.listshop.uitests.stepsDefinitions.dashboard;
+package hellocucumber.meg.listshop.uitests.stepsDefinitions.onboarding;
 
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.SignUpPage;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.junit.jupiter.api.Assertions;
 
 public class OnboardingPageStepDefinitionsBase {
 

@@ -51,6 +51,7 @@ public class AppiumWrapper {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, configReader.getMobileDeviceName());
         capabilities.setCapability(MobileCapabilityType.APP, configReader.getMobileAppPath());
+        capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 190000);
 
         if (withReinstall) {
@@ -110,14 +111,27 @@ public class AppiumWrapper {
         return appiumResinstallDriver;
     }
 
-    @After("@mobile")
+    @After("@anonymoususer")
     public static void resetApp() {
        getAppiumDriver().resetApp();
     }
 
-    @Before("@anonymoususer")
-    public static void setReinstallDriver() {
+
+    public static void setResetSimEachTime() throws MalformedURLException {
         useReinstallDriver = true;
+    }
+
+    //@Before()
+    public static void reinstallBeforeTest() throws MalformedURLException {
+        if (appiumDriver != null) {
+            appiumDriver.removeApp("meg.project.listshop");
+            appiumDriver.quit();
+            appiumDriver = null;
+        }
+        intializeAppiumDriver(false);
+        //appiumDriver.installApp("meg.project.listshop");
+
+
     }
 
     /**
@@ -131,5 +145,10 @@ public class AppiumWrapper {
             System.out.println("Quitting Appium - Done");
             appiumDriver = null;
         }
+    }
+
+    public static void reopenApp() {
+        getAppiumDriver().terminateApp("meg.project.listshop");
+        getAppiumDriver().activateApp("meg.project.listshop");
     }
 }

@@ -24,6 +24,7 @@ Feature: Logging In Tests
     Given User navigates to sign in page
     When User enters username "uitest@the-list-shop.com"
     And User enters password "gobbledygook"
+    And User clicks on the submit button
     Then User sees the signin page
     And User sees error message
 

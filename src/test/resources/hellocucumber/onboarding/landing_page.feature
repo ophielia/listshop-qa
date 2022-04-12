@@ -1,4 +1,4 @@
-@mobile
+@anonymoususer
 Feature: Basic Landing Page Tests
   The links on the landing page lead where they should
 

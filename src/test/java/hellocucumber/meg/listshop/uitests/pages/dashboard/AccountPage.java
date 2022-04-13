@@ -10,11 +10,15 @@ public class AccountPage extends WithNavbarBasePage  {
 
     @FindBy(name="Sign Up")
     private MobileElement gotoSignupButton;
-
+    @FindBy(name="Logout")
+    private MobileElement logoutButton;
 
     public void goToLandingPage() {
         tapOn(gotoSignupButton);
     }
 
 
+    public void clickOnLogoutButton() {
+        tapOn(logoutButton);
+    }
 }

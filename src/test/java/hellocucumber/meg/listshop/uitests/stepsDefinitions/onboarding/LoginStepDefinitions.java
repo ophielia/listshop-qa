@@ -18,22 +18,22 @@ public class LoginStepDefinitions {
 
     @When("User enters username {string}")
     public void userEntersUsername(String username) {
-        getSignInPage().enterUsername(username);
+        PageProvider.getSignInPage().enterUsername(username);
     }
 
     @And("User enters password {string}")
     public void userEntersPassword(String password) {
-        getSignInPage().enterPassword(password);
+        PageProvider.getSignInPage().enterPassword(password);
     }
 
     @And("User clicks on the submit button")
     public void userClicksOnTheSubmitButton() {
-        getSignInPage().clickOnSubmit();
+        PageProvider.getSignInPage().clickOnSubmit();
     }
 
     @And("User sees error message")
     public void userSeesErrorMessage() {
-        getSignInPage().errorsDisplayed();
+        PageProvider.getSignInPage().errorsDisplayed();
     }
 
     @And("User reopens app")
@@ -41,7 +41,11 @@ public class LoginStepDefinitions {
         AppiumWrapper.reopenApp();
     }
 
-    private SignInPage getSignInPage() {
-        return (SignInPage) PageProvider.getPage(PageType.SignIn);
+    @And("User resets app")
+    public void userResetsApp() {
+        AppiumWrapper.resetApp();
     }
+
+
+
 }

@@ -61,7 +61,16 @@ public class ChoicePageStepDefinitions {
 
     @Then("User sees the list screen page")
     public void userSeesTheListScreenPage() {
-        Assertions.assertTrue(getAnyNavbarPage().isOnPageWithNavbar());
+        boolean onPageWithNavbar = getAnyNavbarPage().isOnPageWithNavbar();
+
+        Assertions.assertTrue(onPageWithNavbar);
+    }
+
+    @Then("User is logged in")
+    public void userSeesNavbarPage() {
+        boolean onPageWithNavbar = getAnyNavbarPage().isOnPageWithNavbar();
+
+        Assertions.assertTrue(onPageWithNavbar);
     }
 
 

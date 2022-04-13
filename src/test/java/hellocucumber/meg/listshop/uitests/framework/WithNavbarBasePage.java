@@ -30,4 +30,6 @@ public class WithNavbarBasePage extends MobileBasePage {
     public void goToDashboard() {
         tapOn(gotoDashboardScreenButton);
     }
+
+
 }

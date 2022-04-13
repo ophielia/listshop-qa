@@ -16,13 +16,40 @@ public class SignUpPage extends OnboardingBasePage {
     @FindBy(name="Sign Up")
     private MobileElement signUpButton;
 
+    @FindBy(name="Error Panel")
+    private MobileElement errorPanel;
+
     public boolean verifyTitleDisplayed(){
         return isElementDisplayed(signUpTitle);
     }
 
+    public void clickOnBackButton() throws InterruptedException {
+        tapOn(signUpButton);
+        Thread.sleep(1000);
+    }
+
+    public void enterUsername(String username) {
+        tapOn(emailEntry);
+        setValue(emailEntry, username);
+    }
+
+    public void enterPassword(String password) {
+        tapOn(passwordEntry);
+        setValue(passwordEntry, password);
+    }
+
+    public void enterPasswordConfirmation(String password) {
+        tapOn(passwordConfirmationEntry);
+        setValue(passwordConfirmationEntry, password);
+    }
+
+
     public void clickOnSignUpButton() throws InterruptedException {
         tapOn(signUpButton);
         Thread.sleep(1000);
+    }
+    public void errorsDisplayed() {
+        isElementDisplayed(errorPanel);
     }
 
 }

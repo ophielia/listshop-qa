@@ -14,14 +14,17 @@ public class PageProvider {
 
     private static final Map<PageType, MobileBasePage> pages = new HashMap<>();
 
-    public static final MobileBasePage getPage(PageType type) {
-        if (PageType.AnyNavbar.equals(type)) {
+    public static final MobileBasePage getPage(PageType type, boolean forceRecreate) {
+        if (!forceRecreate && PageType.AnyNavbar.equals(type)) {
             return anyPageWithNavbar();
         }
-        if (pages.keySet().contains(type)) {
+        if (!forceRecreate && pages.keySet().contains(type)) {
             return pages.get(type);
         }
         return createPage(type);
+    }
+    public static final MobileBasePage getPage(PageType type) {
+        return getPage(type, false);
     }
 
     private static MobileBasePage anyPageWithNavbar() {
@@ -56,5 +59,23 @@ public class PageProvider {
 
         }
         return pages.get(type);
+    }
+
+    public static SignInPage getSignInPage() {
+        return (SignInPage) PageProvider.getPage(PageType.SignIn);
+    }
+    public static SignInPage refreshSignInPage() {
+        return (SignInPage) PageProvider.getPage(PageType.SignIn, true);
+    }
+    public static SignUpPage getSignUpPage() {
+        return (SignUpPage) PageProvider.getPage(PageType.SignUp);
+    }
+
+    public static ChoicePage getChoicePage() {
+        return (ChoicePage) PageProvider.getPage(PageType.Choice);
+    }
+
+    public static AccountPage getAccountPage() {
+        return (AccountPage)PageProvider.getPage(PageType.Account);
     }
 }

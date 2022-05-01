@@ -2,10 +2,7 @@ package hellocucumber.meg.listshop.uitests.framework;
 
 
 import hellocucumber.meg.listshop.uitests.pages.dashboard.AccountPage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.ForgotPasswordPage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.SignInPage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.SignUpPage;
+import hellocucumber.meg.listshop.uitests.pages.onboarding.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +47,9 @@ public class PageProvider {
                 break;
             case ForgotPassword:
                 pages.put(type, new ForgotPasswordPage());
+                break;
+            case PasswordResetSuccess:
+                pages.put(type, new PasswordResetSuccessPage());
                 break;
             case SignIn:
                 pages.put(type, new SignInPage());

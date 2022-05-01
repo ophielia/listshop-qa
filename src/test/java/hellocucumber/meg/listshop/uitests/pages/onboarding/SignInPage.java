@@ -17,6 +17,9 @@ public class SignInPage extends OnboardingBasePage {
     @FindBy(name="Error Panel")
     private MobileElement errorPanel;
 
+    @FindBy(name="Forgot Password")
+    private MobileElement forgotPasswordButton;
+
     public boolean verifyTitleDisplayed(){
         return isElementDisplayed(signInTitle);
     }
@@ -38,6 +41,10 @@ public class SignInPage extends OnboardingBasePage {
 
     public void clickOnSubmit() {
         tapOn(signInButton);
+    }
+
+    public void clickOnForgotPassword() {
+        tapOn(forgotPasswordButton);
     }
 
     public void errorsDisplayed() {

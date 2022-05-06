@@ -1,5 +1,7 @@
 package hellocucumber.meg.listshop.uitests.stepsDefinitions;
 
+import hellocucumber.meg.listshop.uitests.framework.PageProvider;
+import hellocucumber.meg.listshop.uitests.framework.PageType;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import hellocucumber.meg.listshop.uitests.pages.dashboard.AccountPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
@@ -12,33 +14,11 @@ import org.junit.jupiter.api.Assertions;
 
 public class NavigationStepDefinitions {
 
-    OnboardingBasePage landingPage = new OnboardingBasePage();
-    WithNavbarBasePage anyNavbarPage = new WithNavbarBasePage();
-
-  //  @Given("user is on choice page")
-    public void userIsOnChoicePage() throws InterruptedException {
-        boolean onLandingPage = landingPage.currentlyOnOnboardingPage();
-        if (onLandingPage &&
-        landingPage.currentlyOnChoicePage()) {
-            System.out.println("userIsOnChoicePage: on landing choice page, returning");
-            return;
-        }
-        if (onLandingPage) {
-            System.out.println("userIsOnChoicePage: on other onboarding page, moving to choice page");
-            landingPage.goToChoicePage();
-            return;
-        }
-        // possibly on a navbar page
-        if (anyNavbarPage.currentlyOnNavbarPage()) {
-            System.out.println("userIsOnChoicePage: on navbar page, moving to choice page");
-            anyNavbarPage.goToDashboard();
-            AccountPage accountPage = new AccountPage();
-            accountPage.goToLandingPage();
-            landingPage.goToChoicePage();
-        }
-
-
-        Assertions.assertTrue(landingPage.verifyTitleDisplayed());
+    @Given("User navigates to list management page")
+    public void userNavigatesToListManagementPage() {
+        WithNavbarBasePage anyNavbar = (WithNavbarBasePage) PageProvider.getPage(PageType.AnyNavbar);
+        anyNavbar.goToListManagement();
     }
+
 
 }

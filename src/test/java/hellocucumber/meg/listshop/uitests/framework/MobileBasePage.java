@@ -1,14 +1,20 @@
 package hellocucumber.meg.listshop.uitests.framework;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static hellocucumber.meg.listshop.uitests.framework.AppiumWrapper.*;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class MobileBasePage {
 
@@ -83,6 +89,52 @@ public class MobileBasePage {
         }
 
     }
+
+    protected boolean checkElementDisplayed(MobileElement mobileElement, int waitSeconds) {
+        try{
+            AppiumWrapper.getAppiumDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            WebDriverWait wait = new WebDriverWait(AppiumWrapper.getAppiumDriver(), waitSeconds);
+            wait.until(ExpectedConditions.visibilityOf(mobileElement));
+        }catch(Exception e){
+            return false;
+        } finally {
+            AppiumWrapper.getAppiumDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        }
+        return true;
+    }
+
+    protected boolean swipeElement(MobileElement mobileElement, Direction direction ) {
+        final int ANIMATION_TIME = 200; // ms
+        final HashMap<String, String> scrollObject = new HashMap<String, String>();
+
+        switch (direction) {
+            case DOWN: // from up to down (! differs from mobile:scroll)
+            case UP: // from down to up  (! differs from mobile:scroll)
+            case LEFT: // from right to left  (! differs from mobile:scroll)
+            case RIGHT: // from left to right  (! differs from mobile:scroll)
+                scrollObject.put("direction", direction.name().toLowerCase());
+                break;
+            default:
+                throw new IllegalArgumentException("mobileSwipeElementIOS(): dir: '" + direction + "' NOT supported");
+        }
+        scrollObject.put("element", mobileElement.getId());
+        try {
+            AppiumWrapper.getAppiumDriver().executeScript("mobile:swipe", scrollObject);
+            Thread.sleep(ANIMATION_TIME); // always allow swipe action to complete
+        } catch (Exception e) {
+            System.err.println("mobileSwipeElementIOS(): FAILED\n" + e.getMessage());
+            return true;
+        }
+return true;
+    }
+
+    public void tapActionByCoordinates(Point point) throws InterruptedException {
+        TouchAction startStop = new TouchAction(AppiumWrapper.getAppiumDriver())
+                .tap(point(point.x,point.y));
+        startStop.perform();
+        Thread.sleep(2500);
+    }
+
 
     /**
      * This method is used to verify if element is enabled

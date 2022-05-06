@@ -121,7 +121,7 @@ public class AppiumWrapper {
         useReinstallDriver = true;
     }
 
-    //@Before()
+    @Before()
     public static void reinstallBeforeTest() throws MalformedURLException {
         if (appiumDriver != null) {
             appiumDriver.removeApp("meg.project.listshop");
@@ -147,6 +147,7 @@ public class AppiumWrapper {
         }
     }
 
+    @After("@loggedinuser")
     public static void reopenApp() {
         getAppiumDriver().terminateApp("meg.project.listshop");
         getAppiumDriver().activateApp("meg.project.listshop");

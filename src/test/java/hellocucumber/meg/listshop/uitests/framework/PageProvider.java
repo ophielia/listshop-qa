@@ -1,11 +1,14 @@
 package hellocucumber.meg.listshop.uitests.framework;
 
 
+import hellocucumber.meg.listshop.uitests.pages.list.ListPage;
+import hellocucumber.meg.listshop.uitests.pages.list_managment.ListManagementPage;
 import hellocucumber.meg.listshop.uitests.pages.dashboard.AccountPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class PageProvider {
 
@@ -51,6 +54,12 @@ public class PageProvider {
             case PasswordResetSuccess:
                 pages.put(type, new PasswordResetSuccessPage());
                 break;
+            case ListManagementPage:
+                pages.put(type, new ListManagementPage());
+                break;
+            case ListPage:
+                pages.put(type, new ListPage());
+                break;
             case SignIn:
                 pages.put(type, new SignInPage());
                 break;
@@ -73,6 +82,13 @@ public class PageProvider {
 
     public static ChoicePage getChoicePage() {
         return (ChoicePage) PageProvider.getPage(PageType.Choice);
+    }
+    public static ListPage getListPage() {
+        return (ListPage) PageProvider.getPage(PageType.ListPage);
+    }
+
+    public static ListManagementPage getListManagementPage() {
+        return (ListManagementPage) PageProvider.getPage(PageType.ListManagementPage);
     }
 
     public static AccountPage getAccountPage() {

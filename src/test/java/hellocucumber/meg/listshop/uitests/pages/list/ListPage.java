@@ -7,4 +7,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class ListPage extends WithNavbarBasePage {
 
+    @FindBy(name = "List Title")
+    MobileElement listTitleLabel;
+
+
+    public boolean verifyCurrentListName(String shoppingList) {
+        return listTitleLabel.getText().equals(shoppingList);
+    }
 }

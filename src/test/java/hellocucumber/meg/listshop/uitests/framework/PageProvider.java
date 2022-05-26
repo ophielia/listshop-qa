@@ -94,4 +94,8 @@ public class PageProvider {
     public static AccountPage getAccountPage() {
         return (AccountPage)PageProvider.getPage(PageType.Account);
     }
+
+    public static void reset() {
+        pages.clear();
+    }
 }

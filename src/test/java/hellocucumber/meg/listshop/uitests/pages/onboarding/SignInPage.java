@@ -47,7 +47,7 @@ public class SignInPage extends OnboardingBasePage {
         tapOn(forgotPasswordButton);
     }
 
-    public void errorsDisplayed() {
-        isElementDisplayed(errorPanel);
+    public boolean errorsDisplayed() {
+        return checkElementDisplayed(errorPanel,2);
     }
 }

@@ -22,13 +22,18 @@ public class SignUpStepDefinitions {
     private final String randomPassword = "passw0rd";
 
     @BeforeStep("@resetApp")
-public void resetApp() {
+    public void resetApp() {
     AppiumWrapper.resetApp();
 }
 
     @Given("User navigates to sign up page")
     public void userNavigatesToSignUpPage() throws InterruptedException {
-    PageProvider.getChoicePage().clickOnSignUpButton();
+        ChoicePage page = PageProvider.getChoicePage();
+        if ( page.currentlyOnOnboardingPage()) {
+            PageProvider.getChoicePage().clickOnSignUpButton();
+            return;
+        }
+
     }
     
     

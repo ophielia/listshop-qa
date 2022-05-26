@@ -41,11 +41,19 @@ public class LoginStepDefinitions {
     @Given("Default user is logged in")
     public void defaultUserIsLoggedIn() throws InterruptedException {
         WithNavbarBasePage anyNavbar = (WithNavbarBasePage) PageProvider.getPage(PageType.AnyNavbar);
-        while (!anyNavbar.currentlyOnNavbarPage()) {
+        boolean isLoggedIn = anyNavbar.currentlyOnNavbarPage();
+        if (!isLoggedIn) {
             userNavigatesToSignInPage();
+        }
+        while (!isLoggedIn) {
+
             userEntersUsername(DEFAULT_USER);
             userEntersPassword(DEFAULT_PASSWORD);
             userClicksOnTheSubmitButton();
+            if (!PageProvider.getSignInPage().errorsDisplayed() &&
+                anyNavbar.currentlyOnNavbarPage()) {
+                isLoggedIn = true;
+            }
         }
     }
 
@@ -58,9 +66,5 @@ public class LoginStepDefinitions {
     public void userResetsApp() {
         AppiumWrapper.resetApp();
     }
-
-
-
-
 
 }

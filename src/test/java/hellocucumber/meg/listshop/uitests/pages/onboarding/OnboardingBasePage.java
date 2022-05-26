@@ -30,49 +30,9 @@ public class OnboardingBasePage extends MobileBasePage {
 
     public boolean currentlyOnOnboardingPage() {
         // if on choice page return true
-        return checkElementDisplayed(choosePageTitle) ||
-                checkElementDisplayed(signUpTitle) ||
-                checkElementDisplayed(signInTitle);
+        return checkElementDisplayed(choosePageTitle, 2) ||
+                checkElementDisplayed(signUpTitle,2) ||
+                checkElementDisplayed(signInTitle,2);
     }
 
-    public boolean currentlyOnChoicePage() {
-        // if on choice page return true
-        return checkElementDisplayed(choosePageTitle);
-    }
-
-    public  void goToChoicePage() throws InterruptedException {
-        // if on sign in or sign up page click on back button
-        if (checkElementDisplayed(signInTitle) ||
-                checkElementDisplayed(signUpTitle)) {
-            clickOnBackButton();
-            return;
-        }
-        // if on forgot password page, click on back button, and then click on back button
-
-    }
-   /*
-
-
-    public static void goToChoicePage(OnboardingBasePage page, WithNavbarBasePage navbarBasePage) throws InterruptedException {
-        // if on sign in or sign up page click on back button
-        if (page.checkElementDisplayed(page.signInTitle) ||
-                page.checkElementDisplayed(page.signUpTitle)) {
-            page.clickOnBackButton();
-            return;
-        }
-        // if on forgot password page, click on back button, and then click on back button
-
-        // if on a navbar page
-        if (navbarBasePage.isOnPageWithNavbar()) {
-            // go to onboarding
-            WithNavbarBasePage.goToDashboardRoot(navbarBasePage);
-
-        }
-    }
-
-    public static boolean currentlyOnChoicePage(OnboardingBasePage page) {
-        return page.checkElementDisplayed(page.choosePageTitle);
-    }
-
-    */
 }

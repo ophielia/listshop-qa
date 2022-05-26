@@ -3,6 +3,7 @@ package hellocucumber.meg.listshop.uitests.framework;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.support.PageFactory;
@@ -56,6 +57,7 @@ public class MobileBasePage {
     protected void setValue(MobileElement mobileElement, String setValue) {
 
         try {
+            mobileElement.clear();
             mobileElement.sendKeys(setValue);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -82,11 +84,7 @@ public class MobileBasePage {
     }
 
     protected boolean checkElementDisplayed(MobileElement mobileElement) {
-        try {
-            return mobileElement.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        return checkElementDisplayed(mobileElement, 2);
 
     }
 
@@ -99,6 +97,22 @@ public class MobileBasePage {
             return false;
         } finally {
             AppiumWrapper.getAppiumDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        }
+        return true;
+    }
+
+    protected boolean checkElementDisplayedOnScreen(MobileElement mobileElement, int waitSeconds) {
+        if (!checkElementDisplayed(mobileElement)) {
+            return false;
+        }
+
+        // now, since it may be off screen - check that it's visible to the user
+        Dimension screenDimansion = AppiumWrapper.getAppiumDriver().manage().window().getSize();
+        Dimension elementDimension = mobileElement.getSize();
+        Point elementOrigin = mobileElement.getLocation();
+
+        if (elementOrigin.getX() < 0 || (elementOrigin.getX() + elementDimension.getWidth()) > screenDimansion.getWidth() ) {
+            return false;
         }
         return true;
     }

@@ -18,6 +18,8 @@ Feature: List Screen Tests
 
 
   Scenario: Logged in user can swipe from list to list
+    Given User swipes through all lists
+    Then User should have seen at least 4 lists
 
 
   Scenario: Logged in user can swipe through every list

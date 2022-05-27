@@ -5,21 +5,37 @@ import hellocucumber.meg.listshop.uitests.pages.list.ListPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class ListScreenStepDefinitions {
 
+    private int swipedListCount = 0;
+
     @Given("User navigates to list screen page")
-    public void playground() {
+    public void playground() throws InterruptedException {
         ListPage listPage = PageProvider.getListPage();
-        boolean testOnScreen = listPage.mainToolbarIsShown();
-        boolean testOnScreen2 = listPage.addDishToolbarIsShown();
-        boolean testOnScreen12 = listPage.addItemToolbarIsShown();
-        boolean testOnScreen13 = listPage.addListToolbarIsShown();
-        listPage.navigateToToolbar(ListPage.ADD_ITEM_HANDLE);
-        listPage.navigateToToolbar(ListPage.ADD_LIST_HANDLE);
-        listPage.navigateToToolbar(ListPage.MAIN_TOOLBAR_HANDLE);
         listPage.navigateToToolbar(ListPage.ADD_DISH_HANDLE);
-        boolean testOnScreen14 = listPage.addListToolbarIsShown();
+
+        // get current list name
+        Set<String> names = new HashSet<>();
+        String startName = listPage.displayedListName();
+        if (startName == null) {
+            return;
+        }
+        names.add(startName);
+        listPage.swipeToNextList();
+        listPage.checkPageSource();
+
+        String listName = listPage.displayedListName();
+        while (!startName.equals(listName)) {
+            names.add(listName);
+            listPage.swipeToNextList();
+            listName = listPage.displayedListName();
+        }
+
+        listPage.navigateToToolbar(ListPage.ADD_DISH_HANDLE);
     }
 
 
@@ -31,5 +47,31 @@ public class ListScreenStepDefinitions {
     @Then("Toolbar  {string} should be displayed")
     public void toolbarShouldBeDisplayed(String toolbarHandle) {
         PageProvider.getListPage().toolbarIsDisplayed(toolbarHandle);
+    }
+
+    @Given("User swipes through all lists")
+    public void userSwipesThroughAllLists() {
+        ListPage listPage = PageProvider.getListPage();
+        Set<String> names = new HashSet<>();
+        String startName = listPage.displayedListName();
+        if (startName == null) {
+            return;
+        }
+        names.add(startName);
+        listPage.swipeToNextList();
+
+        String listName = listPage.displayedListName();
+        while (!startName.equals(listName)) {
+            names.add(listName);
+            listPage.swipeToNextList();
+            listName = listPage.displayedListName();
+        }
+
+        swipedListCount = names.size();
+    }
+
+    @Then("User should have seen at least {int} lists")
+    public boolean userShouldHaveSeenAtLeastLists(int minimumListCount) {
+        return swipedListCount >= minimumListCount;
     }
 }

@@ -7,6 +7,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Date;
+
 public class ListManagementStepDefinitions {
 
     public ListManagementStepDefinitions() {
@@ -37,7 +39,7 @@ public class ListManagementStepDefinitions {
 
     @And("One of the lists is called {string}")
     public boolean oneOfTheListsIsCalled(String listName) {
-        return PageProvider.getListManagementPage().listsContainListWithName(listName);
+        return PageProvider.getListManagementPage().listsContainListWithNameStartingWith(listName);
     }
 
     @When("User removes list {string}")
@@ -58,7 +60,9 @@ public class ListManagementStepDefinitions {
 
     @When("User adds {string} to list named {string}")
     public void userAddsToListNamed(String listSuffix, String listName) throws InterruptedException {
-        PageProvider.getListManagementPage().addToListName(listSuffix, listName);
+        String timeTag = String.valueOf(new Date().getTime());
+        String uniqueSuffix = String.format("%s %s", listSuffix , timeTag.substring(6));
+        PageProvider.getListManagementPage().addToListName(uniqueSuffix, listName);
     }
 
     @When("User changes name of {string} to {string}")

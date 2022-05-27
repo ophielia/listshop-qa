@@ -1,11 +1,9 @@
 package hellocucumber.meg.listshop.uitests.pages.list_managment;
 
-import hellocucumber.meg.listshop.uitests.framework.AppiumWrapper;
 import hellocucumber.meg.listshop.uitests.framework.Direction;
 import hellocucumber.meg.listshop.uitests.framework.SwipeButtonCollection;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.Point;
@@ -54,10 +52,10 @@ public class ListManagementPage extends WithNavbarBasePage {
         countAfterAction = getListCount();
     }
 
-    public boolean listsContainListWithName(String listName) {
+    public boolean listsContainListWithNameStartingWith(String listName) {
         List<MobileElement> nameTags = ((IOSElement) contentTable).findElementsByIosNsPredicate("type == 'XCUIElementTypeStaticText'");
         for (MobileElement element : nameTags) {
-            if (element.getText().equals(listName)) {
+            if (element.getText().startsWith(listName)) {
                 return true;
             }
         }

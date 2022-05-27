@@ -2,7 +2,6 @@ package hellocucumber.meg.listshop.uitests.pages.list;
 
 import hellocucumber.meg.listshop.uitests.framework.Direction;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
-import hellocucumber.meg.listshop.uitests.pages.onboarding.OnboardingBasePage;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,7 +12,7 @@ public class ListPage extends WithNavbarBasePage {
     public static final String ADD_LIST_HANDLE = "Add List";
     public static final String MAIN_TOOLBAR_HANDLE = "Main Toolbar";
     @FindBy(name = "List Title")
-    MobileElement listTitleLabel;
+    MobileElement listNameLabel;
 
     @FindBy(name = "List Indicator")
     MobileElement listIndicatorElement;
@@ -31,7 +30,7 @@ public class ListPage extends WithNavbarBasePage {
     MobileElement addDishToolbar;
 
     public boolean verifyCurrentListName(String shoppingList) {
-        return listTitleLabel.getText().equals(shoppingList);
+        return listNameLabel.getText().equals(shoppingList);
     }
 
     public boolean mainToolbarIsShown() {
@@ -50,6 +49,15 @@ public class ListPage extends WithNavbarBasePage {
         return checkElementDisplayedOnScreen(addListToolbar, 2);
     }
 
+    public void swipeToNextList() {
+        swipeElement(listIndicatorElement, Direction.LEFT);
+    }
+
+
+    public String displayedListName() {
+        return listNameLabel.getText();
+
+    }
 
     public boolean toolbarIsDisplayed(String toolbarHandle) {
         if (toolbarHandle.equals(ADD_ITEM_HANDLE)) {

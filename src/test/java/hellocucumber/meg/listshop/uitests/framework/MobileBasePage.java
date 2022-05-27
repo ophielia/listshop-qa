@@ -101,6 +101,11 @@ public class MobileBasePage {
         return true;
     }
 
+    public void checkPageSource() throws InterruptedException {
+        Thread.sleep(1);
+        String source = AppiumWrapper.getAppiumDriver().getPageSource();
+        Thread.sleep(1);
+    }
     protected boolean checkElementDisplayedOnScreen(MobileElement mobileElement, int waitSeconds) {
         if (!checkElementDisplayed(mobileElement)) {
             return false;

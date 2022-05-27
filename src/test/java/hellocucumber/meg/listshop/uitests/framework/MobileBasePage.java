@@ -55,11 +55,18 @@ public class MobileBasePage {
      * @param setValue
      */
     protected void setValue(MobileElement mobileElement, String setValue) {
+        setValue(mobileElement, setValue, false);
+    }
+
+    protected void setValue(MobileElement mobileElement, String setValue, boolean withClear) {
 
         try {
-            mobileElement.clear();
+            if (withClear) {
+                mobileElement.clear();
+                Thread.sleep(500);
+            }
             mobileElement.sendKeys(setValue);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | InterruptedException e) {
             e.printStackTrace();
             throw new NoSuchElementException("Unable to locate the Element using: " + mobileElement.toString());
         }
@@ -67,11 +74,12 @@ public class MobileBasePage {
 
     /**
      * This method is used to verify if element is displayed
+     *
      * @param mobileElement
      * @return
      */
     protected boolean isElementDisplayed(MobileElement mobileElement) {
-       boolean isDisplayed;
+        boolean isDisplayed;
         try {
             isDisplayed = mobileElement.isDisplayed();
         } catch (NoSuchElementException e) {

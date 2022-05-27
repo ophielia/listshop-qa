@@ -3,6 +3,7 @@ package hellocucumber.meg.listshop.uitests.pages.list;
 import hellocucumber.meg.listshop.uitests.framework.Direction;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import io.appium.java_client.MobileElement;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.support.FindBy;
 
 public class ListPage extends WithNavbarBasePage {
@@ -28,6 +29,12 @@ public class ListPage extends WithNavbarBasePage {
 
     @FindBy(name = "Add Dish")
     MobileElement addDishToolbar;
+
+    @FindBy(name = "Legend Toggle")
+    MobileElement legendHandle;
+
+    @FindBy(name = "Delete Bucket")
+    MobileElement legendDelete;
 
     public boolean verifyCurrentListName(String shoppingList) {
         return listNameLabel.getText().equals(shoppingList);
@@ -59,6 +66,12 @@ public class ListPage extends WithNavbarBasePage {
 
     }
 
+    public void tapOnLegendHandle() throws InterruptedException {
+        // get coordinates
+        Point removePoint = legendHandle.getCenter();
+        tapActionByCoordinates(removePoint);
+    }
+
     public boolean toolbarIsDisplayed(String toolbarHandle) {
         if (toolbarHandle.equals(ADD_ITEM_HANDLE)) {
             return addItemToolbarIsShown();
@@ -82,6 +95,15 @@ public class ListPage extends WithNavbarBasePage {
             navigateToToolbar(mainToolbar);
         }
     }
+
+    public boolean legendIsShown() {
+        return checkElementDisplayed(legendDelete);
+    }
+
+    public boolean legendHandleIsShown() {
+        return checkElementDisplayed(legendHandle);
+    }
+
     private void navigateToToolbar(MobileElement element) {
         boolean toolbarShown = (checkElementDisplayedOnScreen(element, 1));
         int safety = 0;
@@ -107,4 +129,6 @@ public class ListPage extends WithNavbarBasePage {
         }
         return null;
     }
+
+
 }

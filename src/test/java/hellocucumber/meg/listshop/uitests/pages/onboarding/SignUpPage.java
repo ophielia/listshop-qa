@@ -30,17 +30,23 @@ public class SignUpPage extends OnboardingBasePage {
 
     public void enterUsername(String username) {
         tapOn(emailEntry);
-        setValue(emailEntry, username);
+        setValue(emailEntry, username, true);
     }
 
-    public void enterPassword(String password) {
+    public void enterPassword(String password) throws InterruptedException {
         tapOn(passwordEntry);
-        setValue(passwordEntry, password);
+        Thread.sleep(500);
+        setValue(passwordEntry, "", true);
+        Thread.sleep(500);
+        setValue(passwordEntry, password, false);
     }
 
-    public void enterPasswordConfirmation(String password) {
+    public void enterPasswordConfirmation(String password) throws InterruptedException {
         tapOn(passwordConfirmationEntry);
-        setValue(passwordConfirmationEntry, password);
+        Thread.sleep(500);
+        setValue(passwordConfirmationEntry, "", true);
+        Thread.sleep(500);
+        setValue(passwordConfirmationEntry, password, false);
     }
 
 
@@ -48,8 +54,9 @@ public class SignUpPage extends OnboardingBasePage {
         tapOn(signUpButton);
         Thread.sleep(1000);
     }
-    public void errorsDisplayed() {
-        isElementDisplayed(errorPanel);
+
+    public boolean errorsDisplayed() {
+        return checkElementDisplayed(errorPanel, 1);
     }
 
 }

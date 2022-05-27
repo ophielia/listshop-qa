@@ -2,6 +2,7 @@ package hellocucumber.meg.listshop.uitests.stepsDefinitions.list_screen;
 
 import hellocucumber.meg.listshop.uitests.framework.PageProvider;
 import hellocucumber.meg.listshop.uitests.pages.list.ListPage;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -12,32 +13,6 @@ import java.util.Set;
 public class ListScreenStepDefinitions {
 
     private int swipedListCount = 0;
-
-    @Given("User navigates to list screen page")
-    public void playground() throws InterruptedException {
-        ListPage listPage = PageProvider.getListPage();
-        listPage.navigateToToolbar(ListPage.ADD_DISH_HANDLE);
-
-        // get current list name
-        Set<String> names = new HashSet<>();
-        String startName = listPage.displayedListName();
-        if (startName == null) {
-            return;
-        }
-        names.add(startName);
-        listPage.swipeToNextList();
-        listPage.checkPageSource();
-
-        String listName = listPage.displayedListName();
-        while (!startName.equals(listName)) {
-            names.add(listName);
-            listPage.swipeToNextList();
-            listName = listPage.displayedListName();
-        }
-
-        listPage.navigateToToolbar(ListPage.ADD_DISH_HANDLE);
-    }
-
 
     @Given("User navigates to toolbar {string}")
     public void userNavigatesToToolbar(String toolbarHandle) {
@@ -74,4 +49,48 @@ public class ListScreenStepDefinitions {
     public boolean userShouldHaveSeenAtLeastLists(int minimumListCount) {
         return swipedListCount >= minimumListCount;
     }
+
+    @And("User should have seen exactly {int} list")
+    public boolean userShouldHaveSeenExactlyList(int exactCountLists) {
+        return swipedListCount == exactCountLists;
+    }
+
+    @Given("User navigates to shopping list {string}")
+    public void userNavigatesToShoppingList(String shoppingListName) {
+        ListPage listPage = PageProvider.getListPage();
+        Set<String> names = new HashSet<>();
+        String startName = listPage.displayedListName();
+        if (startName == null || startName.equalsIgnoreCase(shoppingListName)) {
+            return;
+        }
+        names.add(startName);
+        listPage.swipeToNextList();
+
+        String listName = listPage.displayedListName();
+        while (!shoppingListName.equals(listName)) {
+            names.add(listName);
+            listPage.swipeToNextList();
+            listName = listPage.displayedListName();
+        }
+
+        swipedListCount = names.size();
+
+    }
+
+    @And("User reveals legend view")
+    public void userRevealsLegendView() throws InterruptedException {
+        PageProvider.getListPage().tapOnLegendHandle();
+    }
+
+    @Then("User should see legend view")
+    public boolean userShouldSeeLegendView() {
+        return PageProvider.getListPage().legendIsShown();
+    }
+
+    @Then("User should not see legend handle")
+    public boolean userShouldNotSeeLegendHandle() {
+        return !PageProvider.getListPage().legendHandleIsShown();
+    }
+
+
 }

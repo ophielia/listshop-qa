@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SignUpStepDefinitions {
 
     private String randomUsername;
-    private final String randomPassword = "passw0rd";
+    private final String randomPassword = "pppppppppp";
 
     @BeforeStep("@resetApp")
     public void resetApp() {
@@ -35,6 +35,7 @@ public class SignUpStepDefinitions {
         }
 
     }
+
     
     
     @And("User submits signup")
@@ -83,5 +84,33 @@ public class SignUpStepDefinitions {
         page.clickOnLogoutButton();
         Thread.sleep(1000);
 
+    }
+
+    @And("User creates new account")
+    public boolean userCreatesNewAccount() throws InterruptedException {
+        ChoicePage page = PageProvider.getChoicePage();
+        if (!page.currentlyOnOnboardingPage()) {
+            return false;
+        }
+        PageProvider.getChoicePage().clickOnSignUpButton();
+        SignUpPage signUpPage = PageProvider.getSignUpPage();
+        String random = UUID.randomUUID().toString();
+        randomUsername = random.substring(1, 4) + new Date().getTime() + "@test.com";
+
+        boolean isSuccess = false;
+        int safety = 0;
+        while (!isSuccess && safety < 50) {
+            Thread.sleep(1000);
+            signUpPage.enterUsername(randomUsername);
+            Thread.sleep(3000);
+            signUpPage.enterPassword(randomPassword);
+            Thread.sleep(3000);
+            signUpPage.enterPasswordConfirmation(randomPassword);
+
+            signUpPage.clickOnSignUpButton();
+            isSuccess = !signUpPage.errorsDisplayed();
+            safety++;
+        }
+        return true;
     }
 }

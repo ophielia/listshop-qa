@@ -31,12 +31,12 @@ public class SignInPage extends OnboardingBasePage {
 
     public void enterUsername(String username) {
         tapOn(emailEntry);
-        setValue(emailEntry, username);
+        setValue(emailEntry, username, true);
     }
 
     public void enterPassword(String password) {
         tapOn(passwordEntry);
-        setValue(passwordEntry, password);
+        setValue(passwordEntry, password, true);
     }
 
     public void clickOnSubmit() {

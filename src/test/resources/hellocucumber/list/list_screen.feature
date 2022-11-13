@@ -25,6 +25,7 @@ Feature: List Screen Tests
     Given User navigates to shopping list "King Soopers"
     And User reveals legend view
     Then User should see legend view
+    And User can close legend view
 
   Scenario: Legend view not available for lists without sources
     Given User navigates to shopping list "Ace Hardware"

@@ -78,6 +78,7 @@ public class ListScreenStepDefinitions {
     }
 
     @And("User reveals legend view")
+    @And("User can close legend view")
     public void userRevealsLegendView() throws InterruptedException {
         PageProvider.getListPage().tapOnLegendHandle();
     }

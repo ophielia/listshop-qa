@@ -6,14 +6,15 @@ import org.openqa.selenium.support.FindBy;
 public class PasswordResetSuccessPage extends OnboardingBasePage {
 
 
-    @FindBy(name="Done!")
-    private MobileElement titleLabel;
+    @FindBy(name = "Login")
+    private MobileElement loginButton;
 
-
-
-    public boolean verifyTitleDisplayed(){
-        return isElementDisplayed(forgotPasswordTitle);
+    public boolean verifyTitleDisplayed() {
+        return isElementDisplayed(passwordResetTitle);
     }
 
 
+    public void clickOnGotoLogin() {
+        tapOn(loginButton);
+    }
 }

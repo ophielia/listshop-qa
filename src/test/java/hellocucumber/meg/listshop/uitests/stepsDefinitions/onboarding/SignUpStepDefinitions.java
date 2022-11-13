@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SignUpStepDefinitions {
 
     private String randomUsername;
-    private final String randomPassword = "pppppppppp";
+    private final String randomPassword = "pPpP7!§$%&/";
 
     @BeforeStep("@resetApp")
     public void resetApp() {
@@ -28,11 +28,8 @@ public class SignUpStepDefinitions {
 
     @Given("User navigates to sign up page")
     public void userNavigatesToSignUpPage() throws InterruptedException {
-        ChoicePage page = PageProvider.getChoicePage();
-        if ( page.currentlyOnOnboardingPage()) {
-            PageProvider.getChoicePage().clickOnSignUpButton();
-            return;
-        }
+        PageProvider.reset();
+        PageProvider.getChoicePage().clickOnSignUpButton();
 
     }
 
@@ -80,9 +77,7 @@ public class SignUpStepDefinitions {
     @And("User logs out")
     public void userLogsOut() throws InterruptedException {
         AccountPage page = PageProvider.getAccountPage();
-        page.goToDashboard();
-        page.clickOnLogoutButton();
-        Thread.sleep(1000);
+        page.logout();
 
     }
 

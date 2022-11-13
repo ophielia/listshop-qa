@@ -1,25 +1,29 @@
 package hellocucumber.meg.listshop.uitests.pages.onboarding;
 
 import hellocucumber.meg.listshop.uitests.framework.MobileBasePage;
-import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.support.FindBy;
 
 public class OnboardingBasePage extends MobileBasePage {
 
-    @FindBy(name="TitleSignIn")
+    @FindBy(name = "TitleSignIn")
     MobileElement signInTitle;
-    @FindBy(name="TitleChoosePage")
+    //@iOSXCUITFindBy(accessibility = "TitleChoosePage")
+    @FindBy(name = "TitleChoosePage")
     MobileElement choosePageTitle;
-    @FindBy(name="TitleSignUp")
+    @FindBy(name = "TitleSignUp")
     MobileElement signUpTitle;
-    @FindBy(name="TitleForgotPassword")
+    @FindBy(name = "TitleForgotPassword")
     MobileElement forgotPasswordTitle;
-    @FindBy(name="@backarrow")
+
+    @FindBy(name = "Done!")
+    MobileElement passwordResetTitle;
+    @FindBy(name = "@backarrow")
     MobileElement backButton;
 
 
-    public boolean verifyTitleDisplayed(){
+    public boolean verifyTitleDisplayed() {
         return isElementDisplayed(signInTitle);
     }
 
@@ -31,8 +35,19 @@ public class OnboardingBasePage extends MobileBasePage {
     public boolean currentlyOnOnboardingPage() {
         // if on choice page return true
         return checkElementDisplayed(choosePageTitle, 2) ||
-                checkElementDisplayed(signUpTitle,2) ||
-                checkElementDisplayed(signInTitle,2);
+                checkElementDisplayed(signUpTitle, 2) ||
+                checkElementDisplayed(signInTitle, 2);
+    }
+
+    public boolean currentlyOnSignUpSignInOrForgot() {
+        // if on choice page return true
+        return checkElementDisplayed(signUpTitle, 2) ||
+                checkElementDisplayed(signInTitle, 2);
+    }
+
+    public boolean currentlyOnForgotPasswordSuccessPage() {
+        // if on choice page return true
+        return checkElementDisplayed(passwordResetTitle, 2);
     }
 
 }

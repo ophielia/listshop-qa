@@ -6,8 +6,6 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AccountPage extends WithNavbarBasePage  {
-
-
     @FindBy(name="Sign Up")
     private MobileElement gotoSignupButton;
     @FindBy(name="Logout")
@@ -20,5 +18,11 @@ public class AccountPage extends WithNavbarBasePage  {
 
     public void clickOnLogoutButton() {
         tapOn(logoutButton);
+    }
+
+    public void logout() throws InterruptedException {
+        goToDashboard();
+        clickOnLogoutButton();
+        Thread.sleep(500);
     }
 }

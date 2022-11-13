@@ -4,6 +4,7 @@ import hellocucumber.meg.listshop.uitests.framework.AppiumWrapper;
 import hellocucumber.meg.listshop.uitests.framework.PageProvider;
 import hellocucumber.meg.listshop.uitests.framework.PageType;
 import hellocucumber.meg.listshop.uitests.framework.WithNavbarBasePage;
+import hellocucumber.meg.listshop.uitests.pages.dashboard.AccountPage;
 import hellocucumber.meg.listshop.uitests.pages.onboarding.ChoicePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -40,18 +41,24 @@ public class LoginStepDefinitions {
 
     @Given("Default user is logged in")
     public void defaultUserIsLoggedIn() throws InterruptedException {
+
+        //MM needs help here - needs to go to choice screen
         WithNavbarBasePage anyNavbar = (WithNavbarBasePage) PageProvider.getPage(PageType.AnyNavbar);
         boolean isLoggedIn = anyNavbar.currentlyOnNavbarPage();
-        if (!isLoggedIn) {
-            userNavigatesToSignInPage();
+        if (isLoggedIn) {
+            AccountPage page = PageProvider.getAccountPage();
+            page.logout();
+            isLoggedIn = false;
         }
+        userNavigatesToSignInPage();
+
         while (!isLoggedIn) {
 
             userEntersUsername(DEFAULT_USER);
             userEntersPassword(DEFAULT_PASSWORD);
             userClicksOnTheSubmitButton();
             if (!PageProvider.getSignInPage().errorsDisplayed() &&
-                anyNavbar.currentlyOnNavbarPage()) {
+                    anyNavbar.currentlyOnNavbarPage()) {
                 isLoggedIn = true;
             }
         }

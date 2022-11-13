@@ -8,6 +8,7 @@ Feature: Forget Password Tests
   Scenario: Forget password with known user is successful
     Given User resets password with username "uitest@the-list-shop.com"
     Then User sees password reset success page
+    And User moves to login page
 
   Scenario: Forget password with unknown user doesn't work
     Given User resets password with username "garbage@the-list-shop.com"

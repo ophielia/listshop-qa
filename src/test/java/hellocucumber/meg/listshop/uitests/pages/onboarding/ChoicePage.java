@@ -8,14 +8,18 @@ public class ChoicePage extends OnboardingBasePage {
 
     @FindBy(name="signin")
     private MobileElement goToSignInButton;
-    @FindBy(name="signup")
+    @FindBy(name = "signup")
     private MobileElement goToSignUpButton;
-    @FindBy(name="Skip for now")
+    @FindBy(name = "Skip for now")
     private MobileElement skipLoginButton;
 
 
-    public boolean verifyTitleDisplayed(){
+    public boolean verifyTitleDisplayed() {
         return isElementDisplayed(choosePageTitle);
+    }
+
+    public boolean currentlyOnPage() {
+        return checkElementDisplayed(goToSignInButton, 2);
     }
 
     public void clickOnSignInButton() throws InterruptedException {

@@ -25,7 +25,7 @@ public class SignInPage extends OnboardingBasePage {
     }
 
     public void clickOnBackButton() throws InterruptedException {
-        tapOn(signInButton);
+        tapOn(backButton);
         Thread.sleep(1000);
     }
 

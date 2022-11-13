@@ -43,7 +43,8 @@ public class AppiumWrapper {
     private static AppiumDriver buildAppiumDriver(boolean withReinstall) throws MalformedURLException {
         ConfigReader configReader = new ConfigReader();
         AppiumDriver appiumDriver = null;
-        String appiumServerURL = "http://0.0.0.0:4723/wd/hub";
+        String appiumServerURL = "http://0.0.0.0:4723";
+        //String appiumServerURL = "http://0.0.0.0:4723/wd/hub";
         String platformName = configReader.getMobilePlatformName();
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -111,7 +112,6 @@ public class AppiumWrapper {
         return appiumResinstallDriver;
     }
 
-    @After("@anonymoususer")
     public static void resetApp() {
        getAppiumDriver().resetApp();
        PageProvider.reset();
@@ -122,7 +122,7 @@ public class AppiumWrapper {
         useReinstallDriver = true;
     }
 
-    @Before("anonymoususer")
+    @Before("@anonymoususer")
     public static void reinstallBeforeTest() throws MalformedURLException {
         if (appiumDriver != null) {
             appiumDriver.removeApp("meg.project.listshop");
@@ -130,6 +130,17 @@ public class AppiumWrapper {
             appiumDriver = null;
         }
         intializeAppiumDriver(false);
+        PageProvider.reset();
+    }
+
+    @After("@anonymoususer")
+    public static void userLogs() throws MalformedURLException {
+        if (appiumDriver != null) {
+            appiumDriver.removeApp("meg.project.listshop");
+            appiumDriver.quit();
+            appiumDriver = null;
+        }
+
 
     }
 
